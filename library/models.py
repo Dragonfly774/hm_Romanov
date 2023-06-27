@@ -13,14 +13,22 @@ class Author(models.Model):
     age = models.IntegerField(null=True)
     country = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.first_name
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=30)
     description = models.TextField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
 
 class Book(models.Model):
     name = models.CharField(max_length=127)
     annotation = models.TextField(max_length=2500)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE,)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, )
     genres = models.ManyToManyField(Genre)
+    def __str__(self):
+        return self.name
