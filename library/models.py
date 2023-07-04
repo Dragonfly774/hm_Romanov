@@ -7,11 +7,18 @@ from django.db import models
 '''
 
 
+class Country(models.Model):
+    name_of_the_country = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name_of_the_country
+
+
 class Author(models.Model):
     first_name = models.CharField(max_length=30)
     second_name = models.CharField(max_length=30)
     age = models.IntegerField(null=True)
-    country = models.CharField(max_length=30)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.first_name
@@ -30,5 +37,6 @@ class Book(models.Model):
     annotation = models.TextField(max_length=2500)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, )
     genres = models.ManyToManyField(Genre)
+
     def __str__(self):
         return self.name
