@@ -5,19 +5,13 @@ console.log();
 console.log("Про книги");
 
 class Book {
-
-    // массив чтоб найти максимальный рейтинг
-    static maxRating = [];
-
-    // масссив чтоб найти отфилтрованные книги по указанному рейтингу
-    static filterMas = [];
+    static books = [];
 
     constructor(name, numberOfPages, rating) {
         this.name = name;
         this.numberOfPages = numberOfPages;
         this.rating = rating;
-        Book.maxRating.push(this.rating);
-        Book.filterMas.push({name_: this.name, rating_: this.rating});
+        Book.books.push(this);
 
     }
 
@@ -25,29 +19,36 @@ class Book {
         /*
         тут будет менятся количесво страниц на указанное
          */
-        this.numberOfPages = newNumberPages
+        this.numberOfPages = newNumberPages;
     }
 
     ratingIncrease(ratingPlus) {
         /*
         увелечение рейтинга на указанное число
          */
-        this.rating = this.rating + ratingPlus
+        this.rating += ratingPlus;
     }
 
     getStatusBook() {
         /*
         тут будет возращаться статус книги по рейтингу
          */
-        return (this.rating > 90) ? "отличная" : (this.rating > 75) ? "хорошая" : (this.rating > 60) ? "можно почитать" : "не стоит читать"
-
+        return ((this.rating > 90) ? "отличная" : (this.rating > 75)
+            ? "хорошая" : (this.rating > 60)
+                ? "можно почитать" : "не стоит читать")
     }
 
     static getMaxRating() {
         /*
         тут будет возращаться максимальный рейтинг
          */
-        return Math.max.apply(null, this.maxRating);
+        let maxRating = 0;
+        for (let i of this.books) {
+            if (maxRating < i.rating) {
+                maxRating = i.rating;
+            }
+        }
+        return maxRating;
     }
 
     static filterByScoreBook(scores) {
@@ -55,9 +56,9 @@ class Book {
         тут будет возращатся список книг выше чем указанный рейтинг
          */
         let namesFilter = [];
-        for (let i of this.filterMas) {
-            if (i.rating_ > scores) {
-                namesFilter.push(i.name_);
+        for (let i of this.books) {
+            if (i.rating > scores) {
+                namesFilter.push(i.name);
             }
         }
         return namesFilter;
@@ -106,7 +107,7 @@ console.log(`Ещё раз увеличенный рейтинг у первой
 
 // Новый статус для чтения у book1
 console.log();
-console.log(`Новый статус для чтения у первой книги: ${book1.getStatus()}`);
+console.log(`Новый статус для чтения у первой книги: ${book1.getStatusBook()}`);
 
 
 /*
@@ -117,15 +118,13 @@ console.log("Про студентов");
 console.log();
 
 class Student {
-    static maxBall = [];
-    static filterMas = [];
+    static students = [];
 
     constructor(name, age, gpa) {
         this.name = name;
         this.age = age;
         this.gpa = gpa;
-        Student.maxBall.push(this.gpa);
-        Student.filterMas.push({name_: this.name, gpa_: this.gpa});
+        Student.students.push(this);
 
     }
 
@@ -134,23 +133,31 @@ class Student {
     }
 
     gpaIncrease(ball) {
-        this.gpa = this.gpa + ball
+        this.gpa += ball
     }
 
     getStatus() {
-        return (this.gpa > 90) ? "отличник" : (this.gpa > 75) ? "хорошист" : (this.gpa > 60) ? "троечник" : "двоечник"
+        return ((this.gpa > 90) ? "отличник" : (this.gpa > 75) ?
+            "хорошист" : (this.gpa > 60) ?
+            "троечник" : "двоечник")
 
     }
 
     static getMaxBall() {
-        return Math.max.apply(null, this.maxBall);
+        let maxBall = 0;
+        for (let i of this.students) {
+            if (maxBall < i.rating) {
+                maxBall = i.rating;
+            }
+        }
+        return maxBall;
     }
 
     static filterByScore(scores) {
         let namesFilter = [];
-        for (let i of this.filterMas) {
-            if (i.gpa_ > scores) {
-                namesFilter.push(i.name_);
+        for (let i of this.students) {
+            if (i.gpa > scores) {
+                namesFilter.push(i.name);
             }
         }
         return namesFilter;
