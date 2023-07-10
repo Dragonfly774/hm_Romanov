@@ -14,8 +14,8 @@ export default {
   data() {
     return {
       countrys: [
-        {id: 1, name:"Россия", },
-        {id: 2, name:"Канада", },
+        {id: 1, name_of_the_country:"Россия", },
+        {id: 2, name_of_the_country:"Канада", },
       ]
     }
   },
