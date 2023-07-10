@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import CreateFormAuthors from "@/components/CreateFormAuthors.vue";
-import AuthorList from "@/components/AuthorList.vue";
+import CreateFormAuthors from "@/components/authorComponents/CreateFormAuthors.vue";
+import AuthorList from "@/components/authorComponents/AuthorList.vue";
 
 export default {
   components: {AuthorList, CreateFormAuthors},

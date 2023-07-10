@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import GenresList from "@/components/GenresList.vue";
-import CreateFormGenres from "@/components/CreateFormGenres.vue";
+import GenresList from "@/components/genreComponents/GenresList.vue";
+import CreateFormGenres from "@/components/genreComponents/CreateFormGenres.vue";
 export default {
   name: "AppContentGenres",
   components: {CreateFormGenres, GenresList},

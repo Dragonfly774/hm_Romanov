@@ -2,8 +2,14 @@
   <div>
     <div class="country" v-for="country in countrys">
       <div class="x-item">
-        <p><strong>id:</strong>{{ country.id }}</p>
-        <p><strong>Название:</strong>{{ country.name_of_the_country }}</p>
+        <tr class="x-tr">
+          <td><p> <strong>id:</strong> </p></td>
+          <td><p> <strong>Название:</strong> </p></td>
+        </tr>
+        <tr class="x-tr">
+          <td><p>{{ country.id }}</p></td>
+          <td><p>{{ country.name_of_the_country }}</p></td>
+        </tr>
       </div>
     </div>
   </div>

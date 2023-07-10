@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import CreateFormCountrys from "@/components/CreateFormCountrys.vue";
-import CountrysList from "@/components/CountrysList.vue";
+import CreateFormCountrys from "@/components/countryComponents/CreateFormCountrys.vue";
+import CountrysList from "@/components/countryComponents/CountrysList.vue";
 export default {
   name: "AppContentCountrys",
   components: {CreateFormCountrys, CountrysList},

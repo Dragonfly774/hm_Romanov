@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import CreateFormBooks from "@/components/CreateFormBooks.vue";
-import BooksList from "@/components/BooksList.vue";
+import CreateFormBooks from "@/components/bookComponents/CreateFormBooks.vue";
+import BooksList from "@/components/bookComponents/BooksList.vue";
 
 export default {
   name: "AppContentBooks",
