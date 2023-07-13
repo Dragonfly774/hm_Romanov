@@ -1,12 +1,12 @@
 <template>
   <div>
-    <form class="x-form" @submit.prevent>
-      <h3 class="x-title">Добавить автора</h3>
-      <input type="text" placeholder="Имя" class="x-input" v-model="author.first_name">
-      <input type="text" placeholder="Фамилия" class="x-input" v-model="author.second_name">
-      <input type="text" placeholder="Возраст" class="x-input" v-model="author.age">
-      <input type="text" placeholder="Страна" class="x-input" v-model="author.country">
-      <button class="x-btn" @click="addAuthor">Добавить</button>
+    <form class="s-form" @submit.prevent>
+      <h3 class="s-title">Добавить автора</h3>
+      <s-input type="text" placeholder="Имя" v-model="author.first_name"/>
+      <s-input type="text" placeholder="Фамилия" v-model="author.second_name"/>
+      <s-input type="text" placeholder="Возраст" v-model="author.age"/>
+      <s-input type="text" placeholder="Страна" v-model="author.country"/>
+      <s-button class="x-btn" @click="addAuthor">Добавить</s-button>
     </form>
   </div>
 </template>
@@ -41,5 +41,12 @@ export default {
 
 
 <style scoped>
-
+.s-form {
+  background: #a5eaa5;
+  border-radius: 8px;
+  padding: 1px 10px 10px 10px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
 </style>

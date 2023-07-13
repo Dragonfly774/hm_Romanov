@@ -1,17 +1,18 @@
 <template>
   <div>
-    <form class="x-form" @submit.prevent>
-      <h3 class="x-title">Добавить книгу</h3>
-      <input type="text" placeholder="Название" class="x-input" v-model="book.name">
-      <input type="text" placeholder="Аннотация" class="x-input" v-model="book.annotation">
-      <input type="text" placeholder="Автор" class="x-input" v-model="book.author">
-      <input type="text" placeholder="Жанры" class="x-input" v-model="book.genres">
-      <button class="x-btn" @click="addBook">Добавить</button>
+    <form class="s-form" @submit.prevent>
+      <h3 class="s-title">Добавить книгу</h3>
+      <s-input type="text" placeholder="Название" v-model="book.name"/>
+      <s-input type="text" placeholder="Аннотация" v-model="book.annotation"/>
+      <s-input type="text" placeholder="Автор" v-model="book.author"/>
+      <s-input type="text" placeholder="Жанры" v-model="book.genres"/>
+      <s-button @click="addBook">Добавить</s-button>
     </form>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "CreateFormBooks",
   data() {
@@ -38,5 +39,12 @@ export default {
 </script>
 
 <style scoped>
-
+.s-form {
+  background: #a5eaa5;
+  border-radius: 8px;
+  padding: 1px 10px 10px 10px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
 </style>

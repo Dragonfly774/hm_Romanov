@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="x-header">
+    <div class="s-header">
       <strong>Романов Семен</strong>
       <div>
         Программист звонит в библиотеку.
@@ -8,20 +8,20 @@
         <br>— Она в архиве.
         <br>— Разархивируйте ее пожалуйста. Она мне срочно нужна!
       </div>
-      <button class="x-btn">Вход</button>
-      <button class="x-btn">Выход</button>
+      <s-button>Вход</s-button>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: "AppHeader"
+  name: "AppHeader",
 }
 </script>
 
 <style scoped>
-.x-header {
+.s-header {
   padding: 10px;
   display: flex;
   justify-content: space-between;

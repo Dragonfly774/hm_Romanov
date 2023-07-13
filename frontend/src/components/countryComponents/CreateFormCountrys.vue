@@ -1,9 +1,9 @@
 <template>
 <div>
-    <form class="x-form" @submit.prevent>
-      <h3 class="x-title">Добавить страну</h3>
-      <input type="text" placeholder="Название" class="x-input" v-model="countrys.name_of_the_country">
-      <button class="x-btn" @click="addCounry">Добавить</button>
+    <form class="s-form" @submit.prevent>
+      <h3 class="s-title">Добавить страну</h3>
+      <s-input type="text" placeholder="Название" v-model="countrys.name_of_the_country"/>
+      <s-button @click="addCounry">Добавить</s-button>
     </form>
   </div>
 </template>
@@ -28,5 +28,12 @@ export default {
 </script>
 
 <style scoped>
-
+.s-form {
+  background: #a5eaa5;
+  border-radius: 8px;
+  padding: 1px 10px 10px 10px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
 </style>

@@ -1,7 +1,17 @@
 <template>
-  <div class="x-content-books">
-    <create-form-books @create="addBook"></create-form-books>
-    <books-list :books="books"></books-list>
+  <div class="s-content-books">
+
+    <s-dialog v-model="createFormVisible">
+      <create-form-books @create="addBook"></create-form-books>
+    </s-dialog>
+    <div class="s-actions">
+      <s-select v-model="selectedSort" :options="sortOptions"></s-select>
+      <s-select v-model="switchSort" :options="switchSortOptions" style="margin-right: auto; margin-left: auto"></s-select>
+      <s-button @click="createFormVisible=true" style="margin-left: auto;">
+        Добавить
+      </s-button>
+    </div>
+    <books-list :books="sortedBooks" @remove="removeBooks"></books-list>
   </div>
 </template>
 
@@ -16,18 +26,57 @@ export default {
     return {
       books: [
         {id: 1, name: "Труды Ленине", annotation: "Книга про труды Ленина", author: "Ленин", genres: "Автобиография"},
-        {id: 1, name: "Гулаг", annotation: "Книга про гулаг", author: "Солженицен", genres: "Автобиография, Роман"},
+        {id: 2, name: "Гулаг", annotation: "Книга про гулаг", author: "Солженицен", genres: "Автобиография, Роман"},
       ],
+      name: "",
+      annotation: "",
+      author: "",
+      genres: "",
+      createFormVisible: false,
+      switchSort: '', // направление сортировки
+      switchSortOptions: [
+        {value: "0", name: "По умолчанию"},
+        {value: "1", name: "По возрастанию"},
+        {value: "2", name: "По убыванию"},
+      ],
+      selectedSort: "",
+      sortOptions: [
+        {value: '', name: 'Без сортировки'},
+        {value: 'id', name: 'По id'},
+        {value: 'name', name: 'По название'},
+        {value: 'annotation', name: 'По описанию',},
+        {value: 'author', name: 'По автору',},
+        {value: 'genres', name: 'По жанрам',},
+      ]
+    }
+  },
+  computed: {
+    sortedBooks() {
+      if (this.switchSort === "2"){
+        return [...this.books].sort((book1, book2) => String(book1[this.selectedSort])?.localeCompare(String(book2[this.selectedSort]))).reverse()
+      } else {
+        return [...this.books].sort((book1, book2) => String(book1[this.selectedSort])?.localeCompare(String(book2[this.selectedSort])))
+      }
+
     }
   },
   methods: {
     addBook(book) {
       this.books.push(book)
+      this.createFormVisible = false
+    },
+
+    removeBooks(book) {
+      this.books = this.books.filter(elem => elem.id !== book.id)
     }
-  }
+  },
+
 }
 </script>
 
 <style scoped>
-
+.s-actions {
+  display: flex;
+  margin-top: 15px;
+}
 </style>
