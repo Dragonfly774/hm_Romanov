@@ -8,7 +8,7 @@
         <br>— Она в архиве.
         <br>— Разархивируйте ее пожалуйста. Она мне срочно нужна!
       </div>
-      <s-button>Вход</s-button>
+      <s-button @click="logout">Вход</s-button>
     </div>
   </div>
 </template>
@@ -17,6 +17,12 @@
 
 export default {
   name: "AppHeader",
+  methods: {
+    logout() {
+      localStorage.setItem('token', '')
+      this.$router.push('/login')
+    }
+  },
 }
 </script>
 
