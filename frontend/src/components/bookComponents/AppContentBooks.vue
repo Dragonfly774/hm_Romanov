@@ -6,7 +6,8 @@
     </s-dialog>
     <div class="s-actions">
       <s-select v-model="selectedSort" :options="sortOptions"></s-select>
-      <s-select v-model="switchSort" :options="switchSortOptions" style="margin-right: auto; margin-left: auto"></s-select>
+      <s-select v-model="switchSort" :options="switchSortOptions"
+                style="margin-right: auto; margin-left: auto"></s-select>
       <s-button @click="createFormVisible=true" style="margin-left: auto;">
         Добавить
       </s-button>
@@ -25,9 +26,9 @@ export default {
   data() {
     return {
       books: [],
-      name: "",
-      annotation: "",
-      author: "",
+      name: '',
+      annotation: '',
+      author: '',
       genres: [],
       createFormVisible: false,
       switchSort: '', // направление сортировки
@@ -49,7 +50,7 @@ export default {
   },
   computed: {
     sortedBooks() {
-      if (this.switchSort === "2"){
+      if (this.switchSort === "2") {
         return [...this.books].sort((book1, book2) => String(book1[this.selectedSort])?.localeCompare(String(book2[this.selectedSort]))).reverse()
       } else {
         return [...this.books].sort((book1, book2) => String(book1[this.selectedSort])?.localeCompare(String(book2[this.selectedSort])))
@@ -70,8 +71,6 @@ export default {
     }
   },
   mounted() {
-    console.log(localStorage.getItem('token'))
-    console.log(this.$store.state.book.token)
     this.$ajax.get('api/book').then((response) => {
       this.books = response.data
     })

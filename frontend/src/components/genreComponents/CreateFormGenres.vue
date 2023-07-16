@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <form class="s-form" @submit.prevent>
       <h3 class="s-title">Добавить жанр</h3>
       <s-input type="text" placeholder="Название" v-model="genres.name"/>
@@ -22,9 +22,11 @@ export default {
   },
   methods: {
     addGenre() {
-      this.$emit('create', { ...this.genres })
-      this.genres.name = ''
-      this.genres.description = ''
+      this.$ajax.post('api/genre/', {...this.genres}).then(() => {
+        this.$emit('create', {...this.genres})
+        this.genres.name = ''
+        this.genres.description = ''
+      })
     }
   }
 }

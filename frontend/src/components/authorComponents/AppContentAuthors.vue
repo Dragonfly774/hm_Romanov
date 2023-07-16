@@ -5,7 +5,8 @@
     </s-dialog>
     <div class="s-actions">
       <s-select v-model="selectedSort" :options="sortOptions"></s-select>
-      <s-select v-model="switchSort" :options="switchSortOptions" style="margin-right: auto; margin-left: auto"></s-select>
+      <s-select v-model="switchSort" :options="switchSortOptions"
+                style="margin-right: auto; margin-left: auto"></s-select>
       <s-button @click="createFormVisible=true" style="margin-left: auto; ">
         Добавить
       </s-button>
@@ -21,12 +22,10 @@ import AuthorList from "@/components/authorComponents/AuthorList.vue";
 
 export default {
   components: {AuthorList, CreateFormAuthors},
+  name: "AppContentAuthors",
   data() {
     return {
-      authors: [
-        {id: 1, first_name: "Сергей", second_name: "Сергеев", age: 22, country: 1},
-        {id: 2, first_name: "Антон", second_name: "Пупкин", age: 24, country: 3},
-      ],
+      authors: [],
       first_name: '',
       second_name: '',
       age: '',
@@ -70,10 +69,16 @@ export default {
       this.createFormVisible = false
     },
     removeAuthors(author) {
-      this.authors = this.authors.filter(elem => elem.id !== author.id)
-    }
+      this.$ajax.delete(`api/author/${author.id}`).then((response) => {
+        this.authors = this.authors.filter(elem => elem.id !== author.id)
+      })
+    },
   },
-  name: "AppContentAuthors"
+  mounted() {
+    this.$ajax.get('api/author').then((response) => {
+      this.authors = response.data
+    })
+  }
 }
 </script>
 

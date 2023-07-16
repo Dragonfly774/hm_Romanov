@@ -5,7 +5,8 @@
       <s-input type="text" placeholder="Название" v-model="book.name"/>
       <s-input type="text" placeholder="Аннотация" v-model="book.annotation"/>
       <s-input type="text" placeholder="Автор" v-model="book.author"/>
-      <s-input type="text" placeholder="Жанры" v-model="book.genres"/>
+      <!--      <s-select v-model="book.genres" :options="book.genres"></s-select>-->
+      <s-input placeholder="Жанры" v-model="book.genres"/>
       <s-button @click="addBook">Добавить</s-button>
     </form>
   </div>
@@ -21,22 +22,27 @@ export default {
         name: '',
         annotation: '',
         author: '',
-        genres: [],
+        genres: '',
       }
     }
   },
   methods: {
     addBook() {
-      this.$ajax.post('api/book', {...this.book}).then(() => {
+      this.$ajax.post('api/book/', {...this.book}).then(() => {
         this.$emit('create', {...this.book})
         this.book.name = ''
         this.book.annotation = ''
         this.book.author = ''
-        this.book.genres = []
+        this.book.genres = ''
       })
-
     }
-  }
+  },
+  // mounted() {
+  //   this.$ajax.get('api/genre').then((response) => {
+  //     this.book.genres = response.data
+  //     console.log(this.book.genres)
+  //   })
+  // }
 
 }
 </script>

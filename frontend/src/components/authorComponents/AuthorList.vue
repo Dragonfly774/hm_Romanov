@@ -45,6 +45,11 @@ export default {
       required: true,
     }
   },
+   removeBook(author) {
+    this.$ajax.delete(`api/author/${author.id}`).then((response) => {
+      $emit('remove', author)
+    })
+  },
   name: "AuthorList"
 }
 </script>

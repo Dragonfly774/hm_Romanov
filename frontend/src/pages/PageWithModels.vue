@@ -2,7 +2,6 @@
     <div class="main-block">
       <app-header></app-header>
       <div style="text-align: center; margin: auto; padding: 10px">
-        <label><input type="radio" v-model="activeComponent" value="AppRoot"/> Главная </label>
         <label><input type="radio" v-model="activeComponent" value="AppContentBooks"/> Cписок книг </label>
         <label> <input type="radio" v-model="activeComponent" value="AppContentAuthors"/> Список авторов </label>
         <label> <input type="radio" v-model="activeComponent" value="AppContentGenres"/> Список жанров </label>
@@ -20,7 +19,6 @@
 <script>
 
 import AppHeader from "@/AppHeader.vue";
-import AppRoot from "@/AppRoot.vue";
 import AppContentBooks from "@/components/bookComponents/AppContentBooks.vue";
 import AppContentAuthors from "@/components/authorComponents/AppContentAuthors.vue";
 import AppContentGenres from "@/components/genreComponents/AppContentGenres.vue";
@@ -29,11 +27,11 @@ import AppContentCountrys from "@/components/countryComponents/AppContentCountry
 export default {
   name: "BookPage",
   components: {
-    AppHeader, AppRoot, AppContentBooks, AppContentAuthors, AppContentGenres, AppContentCountrys
+    AppHeader,  AppContentBooks, AppContentAuthors, AppContentGenres, AppContentCountrys
   },
   data() {
     return {
-      activeComponent: "AppRoot"
+      activeComponent: "AppContentBooks"
     }
   }
 }

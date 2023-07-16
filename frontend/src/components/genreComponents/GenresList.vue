@@ -40,7 +40,12 @@ export default {
       type: Array,
       required: true,
     }
-  }
+  },
+  removeBook(genre) {
+    this.$ajax.delete(`api/genre/${genre.id}`).then((response) => {
+      $emit('remove', genre)
+    })
+  },
 }
 </script>
 <style scoped>

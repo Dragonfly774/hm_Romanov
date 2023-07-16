@@ -38,6 +38,11 @@ export default {
       type: Array,
       required: true,
     }
+  },
+  removeBook(country) {
+    this.$ajax.delete(`api/country/${country.id}`).then((response) => {
+      $emit('remove', country)
+    })
   }
 }
 </script>

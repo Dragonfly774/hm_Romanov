@@ -5,7 +5,8 @@
     </s-dialog>
     <div class="s-actions">
       <s-select v-model="selectedSort" :options="sortOptions"></s-select>
-      <s-select v-model="switchSort" :options="switchSortOptions" style="margin-right: auto; margin-left: auto"></s-select>
+      <s-select v-model="switchSort" :options="switchSortOptions"
+                style="margin-right: auto; margin-left: auto"></s-select>
       <s-button @click="createFormVisible=true" style="margin-left: auto">Добавить</s-button>
     </div>
     <genres-list :genres="sortedGenres" @remove="removeGenres"></genres-list>
@@ -21,10 +22,7 @@ export default {
   components: {CreateFormGenres, GenresList},
   data() {
     return {
-      genres: [
-        {id: 1, name: "Хоррор", description: "Страшно"},
-        {id: 2, name: "Роман", description: "Не то чтобы прям про романтику"},
-      ],
+      genres: [],
       name: '',
       description: '',
       createFormVisible: false,
@@ -64,8 +62,15 @@ export default {
       this.createFormVisible = false
     },
     removeGenres(genre) {
-      this.genres = this.genres.filter(elem => elem.id !== genre.id)
+      this.$ajax.delete(`api/genre/${genre.id}`).then((response) => {
+        this.genres = this.genres.filter(elem => elem.id !== genre.id)
+      })
     }
+  },
+  mounted() {
+    this.$ajax.get('api/genre').then((response) => {
+      this.genres = response.data
+    })
   }
 }
 </script>

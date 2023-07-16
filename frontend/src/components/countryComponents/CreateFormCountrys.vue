@@ -20,8 +20,10 @@ export default {
   },
   methods: {
     addCounry() {
-      this.$emit('create', { ...this.countrys })
-      this.countrys.name_of_the_country = ''
+      this.$ajax.post('api/country/', {...this.countrys}).then(() => {
+        this.$emit('create', {...this.countrys})
+        this.countrys.name_of_the_country = ''
+      })
     }
   }
 }

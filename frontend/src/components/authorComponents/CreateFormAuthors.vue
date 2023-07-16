@@ -15,7 +15,7 @@
 
 
 export default {
-  data(){
+  data() {
     return {
       author: {
         first_name: '',
@@ -27,17 +27,18 @@ export default {
   },
   methods: {
     addAuthor() {
-      this.$emit('create', { ...this.author })
-      this.author.first_name = ''
-      this.author.second_name = ''
-      this.author.age = ''
-      this.author.country = ''
+      this.$ajax.post('api/book/', {...this.author}).then(() => {
+        this.$emit('create', {...this.author})
+        this.author.first_name = ''
+        this.author.second_name = ''
+        this.author.age = ''
+        this.author.country = ''
+      })
     }
   },
   name: "CreateFormAuthors"
 }
 </script>
-
 
 
 <style scoped>

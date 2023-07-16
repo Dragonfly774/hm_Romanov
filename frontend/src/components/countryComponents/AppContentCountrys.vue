@@ -21,10 +21,7 @@ export default {
   components: {CreateFormCountrys, CountrysList},
   data() {
     return {
-      countrys: [
-        {id: 1, name_of_the_country: "Россия",},
-        {id: 2, name_of_the_country: "Канада",},
-      ],
+      countrys: [],
       name_of_the_country: '',
       selectedSort: '',
       createFormVisible: false,
@@ -63,8 +60,15 @@ export default {
     },
 
     removeCountrys(country) {
-      this.countrys = this.countrys.filter(elem => elem.id !== country.id)
+      this.$ajax.delete(`api/country/${country.id}`).then((response) => {
+        this.countrys = this.countrys.filter(elem => elem.id !== country.id)
+      })
     }
+  },
+  mounted() {
+    this.$ajax.get('api/country').then((response) => {
+      this.countrys = response.data
+    })
   }
 }
 </script>
