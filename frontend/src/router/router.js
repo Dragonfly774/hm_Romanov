@@ -1,14 +1,15 @@
 import VueRouter from "vue-router"
-import BookPage from "@/pages/BookPage.vue";
+import PageWithModels from "@/pages/PageWithModels.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import Vue from "vue";
+import store from "@/store";
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-        component: BookPage,
+        component: PageWithModels,
         meta: {requestAuth: true}
     },
     {

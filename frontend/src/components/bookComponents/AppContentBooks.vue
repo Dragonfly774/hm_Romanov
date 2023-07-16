@@ -24,14 +24,11 @@ export default {
   components: {BooksList, CreateFormBooks},
   data() {
     return {
-      books: [
-        {id: 1, name: "Труды Ленине", annotation: "Книга про труды Ленина", author: "Ленин", genres: "Автобиография"},
-        {id: 2, name: "Гулаг", annotation: "Книга про гулаг", author: "Солженицен", genres: "Автобиография, Роман"},
-      ],
+      books: [],
       name: "",
       annotation: "",
       author: "",
-      genres: "",
+      genres: [],
       createFormVisible: false,
       switchSort: '', // направление сортировки
       switchSortOptions: [
@@ -67,9 +64,18 @@ export default {
     },
 
     removeBooks(book) {
-      this.books = this.books.filter(elem => elem.id !== book.id)
+      this.$ajax.delete(`api/book/${book.id}`).then((response) => {
+        this.books = this.books.filter(elem => elem.id !== book.id)
+      })
     }
   },
+  mounted() {
+    console.log(localStorage.getItem('token'))
+    console.log(this.$store.state.book.token)
+    this.$ajax.get('api/book').then((response) => {
+      this.books = response.data
+    })
+  }
 
 }
 </script>

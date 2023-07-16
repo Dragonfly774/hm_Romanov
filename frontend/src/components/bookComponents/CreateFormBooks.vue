@@ -21,17 +21,20 @@ export default {
         name: '',
         annotation: '',
         author: '',
-        genres: '',
+        genres: [],
       }
     }
   },
   methods: {
     addBook() {
-      this.$emit('create', { ...this.book })
-      this.book.name = ''
-      this.book.annotation = ''
-      this.book.author = ''
-      this.book.genres = ''
+      this.$ajax.post('api/book', {...this.book}).then(() => {
+        this.$emit('create', {...this.book})
+        this.book.name = ''
+        this.book.annotation = ''
+        this.book.author = ''
+        this.book.genres = []
+      })
+
     }
   }
 

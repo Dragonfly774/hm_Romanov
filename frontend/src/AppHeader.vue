@@ -8,18 +8,20 @@
         <br>— Она в архиве.
         <br>— Разархивируйте ее пожалуйста. Она мне срочно нужна!
       </div>
-      <s-button @click="logout">Вход</s-button>
+      <s-button @click="logout">Выход</s-button>
     </div>
   </div>
 </template>
 
 <script>
 
+
 export default {
   name: "AppHeader",
   methods: {
     logout() {
-      localStorage.setItem('token', '')
+      // localStorage.setItem('token', '') // старое решение
+      this.$store.commit('book/removeToken')
       this.$router.push('/login')
     }
   },

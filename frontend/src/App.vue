@@ -11,8 +11,8 @@ export default {
 
   name: "App",
   data() {
-    return []
-  }
+    return {}
+  },
 }
 </script>
 
@@ -20,7 +20,6 @@ export default {
 body {
   background-color: #ffffff;
 }
-
 
 
 .warning {

@@ -6,7 +6,7 @@
 export default {
   name: "SInput",
   props: {
-    value: [String, Number]
+    value: [String, Number, Array]
   },
   methods: {
     updateInput(event) {

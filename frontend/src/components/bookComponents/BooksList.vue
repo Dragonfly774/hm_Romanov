@@ -44,7 +44,12 @@ export default {
       required: true,
     }
   },
-  name: "BooksList"
+  name: "BooksList",
+  removeBook(book) {
+    this.$ajax.delete(`api/book/${book.id}`).then((response) => {
+      $emit('remove', book)
+    })
+  }
 }
 </script>
 

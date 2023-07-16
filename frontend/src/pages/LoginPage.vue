@@ -1,6 +1,6 @@
 <template>
   <s-dialog v-model="showDialog">
-    <form @submit.prevent="login" class="s-login-form">
+    <form @submit.prevent="loginUser" class="s-login-form">
       <s-input type="text" placeholder="Username" v-model="username"/>
       <s-input type="password" placeholder="password" v-model="password"/>
       <s-button type="submit">
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-
+import {mapActions} from "vuex";
 
 export default {
   name: "LoginPage",
@@ -23,15 +23,11 @@ export default {
     }
   },
   methods: {
-     login() {
-      this.$ajax.post('api-token-auth/', {
-        username: this.username,
-        password: this.password
-      }).then(response => {
-        const token = response.data.token
-        localStorage.setItem('token', token)
-        this.$router.push('/')
-      })
+    //   метод от сюда переносим в store, делаем метод как actions
+    // mapActions помогает подтянуть конретные actions
+    ...mapActions(['book/login']),
+    loginUser() {
+      this['book/login']({username: this.username, password: this.password, router: this.$router})
     }
   }
 }
