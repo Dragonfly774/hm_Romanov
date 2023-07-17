@@ -5,8 +5,8 @@
       <s-input type="text" placeholder="Название" v-model="book.name"/>
       <s-input type="text" placeholder="Аннотация" v-model="book.annotation"/>
       <s-input type="text" placeholder="Автор" v-model="book.author"/>
-      <!--      <s-select v-model="book.genres" :options="book.genres"></s-select>-->
-      <s-input placeholder="Жанры" v-model="book.genres"/>
+      <s-select v-model.number="genresMa" :options="genresOption"></s-select>
+      <!--      <s-input placeholder="Жанры" v-model="book.genres"/>-->
       <s-button @click="addBook">Добавить</s-button>
     </form>
   </div>
@@ -22,28 +22,40 @@ export default {
         name: '',
         annotation: '',
         author: '',
-        genres: '',
-      }
+        genres: [],
+      },
+      genresMa: '',
+      // genresfdsf: {},
+      genresOption: [],
     }
   },
   methods: {
     addBook() {
+      this.book.genres.push(this.genresMa)
+      console.log(this.book.genres)
       this.$ajax.post('api/book/', {...this.book}).then(() => {
         this.$emit('create', {...this.book})
         this.book.name = ''
         this.book.annotation = ''
         this.book.author = ''
-        this.book.genres = ''
+        this.genres = ''
       })
     }
   },
-  // mounted() {
-  //   this.$ajax.get('api/genre').then((response) => {
-  //     this.book.genres = response.data
-  //     console.log(this.book.genres)
-  //   })
-  // }
-
+  mounted() {
+    // this.$ajax.get('api/genre').then((response) => {
+    //   this.genresfdsf = response.data
+    //   let g = this.genresfdsf.length
+    //   let i = 0
+    //   this.genresOption.push({value: '', name: 'Выберите'})
+    //   while(g > i){
+    //     this.genresOption.push(
+    //         {value: this.genresfdsf[i].id, name: this.genresfdsf[i].name}
+    //     )
+    //     i++
+    //   }
+    // })
+  }
 }
 </script>
 
