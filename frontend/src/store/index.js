@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {bookStore} from "@/store/bookStore"
 import {genreStore} from "@/store/genreStore";
+import {authorStore} from "@/store/authorStore";
 
 
 Vue.use(Vuex)
@@ -9,6 +10,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
         book: bookStore,
-        genre: genreStore
+        genre: genreStore,
+        author: authorStore
     }
 })

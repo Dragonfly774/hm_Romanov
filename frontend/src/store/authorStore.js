@@ -1,19 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-
 Vue.use(Vuex)
 
-export const genreStore = {
+export const authorStore = {
     namespaced: true,
     store: () => ({
-        genres: {}
+        authors: {}
 
     }),
     getters: {},
     mutations: {
-        setGenres(state, genre) {
-            state.genres = genre
+        setAuthors(state, author) {
+            state.authors = author
         },
     },
     actions: {},

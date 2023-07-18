@@ -1,6 +1,6 @@
 <template>
 
-  <select :value="value" @change="$emit('input', $event.target.value)">
+  <select  :value="value" @change="$emit('input', $event.target.value)">
     <option disabled value="">Выберите из списка</option>
     <option
         v-for="option in options"
@@ -17,7 +17,7 @@ export default {
   name: "SSelect",
   props: {
     value: {
-      type: String,
+      type: String, Array
     },
     options: {
       type: Array,

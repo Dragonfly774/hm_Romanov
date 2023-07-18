@@ -22,7 +22,7 @@
                 <td class="s-td"><p>{{ book.name }}</p></td>
                 <td class="s-td"><p>{{ book.annotation }}</p></td>
                 <td class="s-td"><p>{{ book.author }}</p></td>
-                <td class="s-td"><p>{{ book.genres }}</p></td>
+                <td class="s-td"><p>{{ String(book.genres) }}</p></td>
               </tr>
             </table>
           </div>

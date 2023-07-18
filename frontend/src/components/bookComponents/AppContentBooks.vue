@@ -73,13 +73,13 @@ export default {
   mounted() {
     this.$ajax.get('api/book').then((response) => {
       this.books = response.data
-    }),
+    })
     this.$ajax.get('api/genre').then((response) => {
       this.$store.commit('genre/setGenres', response.data)
     })
-    // this.$ajax.get('api/author').then((response) => {
-    //   this.$store.commit('author/setAuthors', response.data)
-    // })
+    this.$ajax.get('api/author').then((response) => {
+      this.$store.commit('author/setAuthors', response.data)
+    })
   }
 
 }
