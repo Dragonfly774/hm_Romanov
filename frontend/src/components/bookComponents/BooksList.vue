@@ -49,7 +49,12 @@ export default {
     this.$ajax.delete(`api/book/${book.id}`).then((response) => {
       $emit('remove', book)
     })
-  }
+  },
+  // mounted() {
+  //   this.$ajax.get('api/genre').then((response) => {
+  //     localStorage.setItem('genre', response.data)
+  //       })
+  // }
 }
 </script>
 

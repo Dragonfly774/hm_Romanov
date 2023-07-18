@@ -3,38 +3,29 @@ import Vuex from 'vuex'
 import axios from "axios"
 
 
+axios.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token')
+    if (token) {
+        config.headers.Authorization = `Token ${token}`
+    }
+    return config
+})
+
+
 Vue.use(Vuex)
 
 export const genreStore = {
     namespaced: true,
     store: () => ({
-        genres: genreStore.getters.genres,
-        genresOption: genreStore.getters.genresOption
-        // token: localStorage.getItem('token') || ''
+        genres: {}
 
     }),
-    getters: {
-        genres: axios.get('api/genre').then((response) => {
-            return response.data
-        }),
-        genresOption: axios.get('api/genre').then((response) => {
-            let genresData = response.data
-            const g = genresData.length
-            let i = 0
-            let option = []
-            option.push({value: '', name: 'Выберите'})
-            while (g > i) {
-                option.push(
-                    {value: genresData[i].id, name: genresData[i].name}
-                )
-                i++
-            }
-            return option
-        })
-
-
+    getters: {},
+    mutations: {
+        setGenres(state, genre) {
+            state.genres = genre
+        },
     },
-    mutations: {},
     actions: {},
     modules: {}
 }
