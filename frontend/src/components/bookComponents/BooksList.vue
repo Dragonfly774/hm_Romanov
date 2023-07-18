@@ -4,12 +4,15 @@
       <div class="books" v-for="book in books" :key="`book-${book.id}`">
         <div>
           <div class="s-item">
-            <table class="s-tr">
-              <tr>
+            <div style="display: flex; flex-direction: row;">
                 <div class="s-item--actions">
                   <s-button class="warning" @click="$emit('remove', book)">Удалить</s-button>
                 </div>
-              </tr>
+                <div class="s-item--actions">
+                  <s-button class="notify" @click="$emit('remove', book)">Изменить</s-button>
+                </div>
+              </div>
+            <table class="s-tr">
               <tr>
                 <td class="s-td"><p><strong>id:</strong></p></td>
                 <td class="s-td"><p><strong>Название:</strong></p></td>

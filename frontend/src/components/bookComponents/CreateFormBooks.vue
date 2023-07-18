@@ -4,8 +4,13 @@
       <h3 class="s-title">Добавить книгу</h3>
       <s-input type="text" placeholder="Название" v-model="book.name"/>
       <s-input type="text" placeholder="Аннотация" v-model="book.annotation"/>
-      <s-select v-model.number="authorValue" :options="authorsOption"></s-select>
-      <s-select v-model.number="genreValue" :options="genresOption"></s-select>
+      <s-select style="margin-bottom: 10px; height: 25px; border-radius: 8px;"
+                v-model.number="authorValue" :options="authorsOption"></s-select>
+      <select multiple="multiple" style="border-radius: 5px; margin-bottom: 10px" v-model="genreValue" >
+        <option v-for="option in genresOption">
+          {{ option.name }}
+        </option>
+      </select>
       <s-button @click="addBook">Добавить</s-button>
     </form>
   </div>
@@ -24,7 +29,7 @@ export default {
         genres: [],
       },
       genreValue: [],
-      authorValue: '',
+      authorValue: [],
       genresList: {},
       authorsList: {},
       genresOption: [],
@@ -33,10 +38,10 @@ export default {
   },
   methods: {
     addBook() {
-      this.book.genres.push(this.genresList.genres[this.genreValue - 1].name)
-      console.log(this.genreValue)
+      this.book.genres = this.genreValue
+      // console.log(this.genreValue)
       this.book.author = `${this.authorsList.authors[this.authorValue - 1].first_name} ${this.authorsList.authors[this.authorValue - 1].second_name}`
-      console.log(this.book.author)
+      // console.log(this.book.author)
       this.$ajax.post('api/book/', {...this.book}).then(() => {
         this.$emit('create', {...this.book})
         this.book.name = ''
@@ -61,7 +66,10 @@ export default {
     let j = 0
     while (authorsListLength > j) {
       this.authorsOption.push(
-          {value: this.authorsList.authors[j].id, name: `${this.authorsList.authors[j].first_name} ${this.authorsList.authors[j].second_name}`}
+          {
+            value: this.authorsList.authors[j].id,
+            name: `${this.authorsList.authors[j].first_name} ${this.authorsList.authors[j].second_name}`
+          }
       )
       j++
     }

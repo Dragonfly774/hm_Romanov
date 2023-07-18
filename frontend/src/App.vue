@@ -22,6 +22,11 @@ body {
 }
 
 
+.notify {
+  background-color: #eec256 !important;
+  border-color: #eec256 !important;
+}
+
 .warning {
   background-color: #e56c3e !important;
   border-color: #e56c3e !important;

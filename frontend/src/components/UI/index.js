@@ -7,5 +7,5 @@ export default [
     SButton,
     SDialog,
     SInput,
-    SSelect,
+    SSelect
 ]
