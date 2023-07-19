@@ -88,10 +88,8 @@ export default {
 
     updateBooks(book) {
       //   это вызовется когда кнопка нажата будет из BookList
-
       this.bookUpDate = book
       this.updateFormVisible = true
-
     },
     updateBooksForm(book) {
       // тут что придет от формы
@@ -103,7 +101,6 @@ export default {
           break
         }
       }
-
     }
   },
   mounted() {

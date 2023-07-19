@@ -1,31 +1,38 @@
 <template>
   <div>
-    <div v-if="countrys.length > 0">
-      <div class="country" v-for="country in countrys" :key="`country-${country.id}`">
-        <div>
-          <div class="s-item">
-            <table class="s-tr">
-              <tr>
+    <div v-show="countrys.length !== 0">
+      <transition-group name="country">
+        <div class="country" v-for="country in countrys" :key="`country-${country.id}`">
+          <div>
+            <div class="s-item">
+              <div style="display: flex; flex-direction: row;">
                 <div class="s-item--actions">
                   <s-button class="warning" @click="$emit('remove', country)">Удалить</s-button>
                 </div>
-              </tr>
-              <tr>
-                <td class="s-td"><p><strong>id:</strong></p></td>
-                <td class="s-td"><p><strong>Название:</strong></p></td>
-              </tr>
-              <tr>
-                <td class="s-td"><p>{{ country.id }}</p></td>
-                <td class="s-td"><p>{{ country.name_of_the_country }}</p></td>
-              </tr>
-            </table>
+                <div class="s-item--actions">
+                  <s-button class="notify" @click="$emit('update', country)">Изменить</s-button>
+                </div>
+              </div>
+              <table class="s-tr">
+                <tr>
+                  <td class="s-td"><p><strong>id:</strong></p></td>
+                  <td class="s-td"><p><strong>Название:</strong></p></td>
+                </tr>
+                <tr>
+                  <td class="s-td"><p>{{ country.id }}</p></td>
+                  <td class="s-td"><p>{{ country.name_of_the_country }}</p></td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
+      </transition-group>
+    </div>
+    <transition name="country">
+      <div v-show="countrys.length === 0" class="warning" style="text-align: center">
+        <h1>Стран нет</h1>
       </div>
-    </div>
-    <div v-else class="warning" style="text-align: center">
-      <h1>Стран нет</h1>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -39,7 +46,7 @@ export default {
       required: true,
     }
   },
-  removeBook(country) {
+  removeCountry(country) {
     this.$ajax.delete(`api/country/${country.id}`).then((response) => {
       $emit('remove', country)
     })
@@ -77,5 +84,19 @@ export default {
   align-self: end;
   margin-left: 10px;
   margin-top: 10px;
+}
+
+.country-enter-active, .country-leave-active {
+  transition: all 1s;
+}
+
+.country-move {
+  transition: transform 1s;
+}
+
+.country-enter, .country-leave-to {
+  opacity: 0.5;
+  transform: translateY(20px);
+
 }
 </style>

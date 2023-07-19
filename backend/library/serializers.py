@@ -7,6 +7,15 @@ class CountrySerializer(serializers.ModelSerializer):
         model = Country
         fields = "__all__"
 
+class CountryRelatedField(serializers.RelatedField):
+    def display_value(self, instance):
+        return instance
+
+    def to_representation(self, value):
+        return str(value)
+
+    def to_internal_value(self, data):
+        return Country.objects.get(name=data)
 
 class GenreRelatedField(serializers.RelatedField):
     def display_value(self, instance):
@@ -53,6 +62,9 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 class AuthorSerializer(serializers.ModelSerializer):
+    country = CountryRelatedField(
+        queryset=Country.objects.all()
+    )
     class Meta:
         model = Author
         fields = "__all__"

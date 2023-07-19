@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div v-show="books.length !== 0">
       <transition-group name="book">
         <div class="books" v-for="book in books" :key="`book-${book.id}`">
@@ -36,15 +35,11 @@
       </transition-group>
     </div>
     <transition name="book">
-    <div v-show="books.length === 0" class="warning" style="text-align: center">
-
+      <div v-show="books.length === 0" class="warning" style="text-align: center">
         <h1>Книг нет</h1>
-
-    </div>
-</transition>
-
+      </div>
+    </transition>
   </div>
-
 </template>
 
 <script>

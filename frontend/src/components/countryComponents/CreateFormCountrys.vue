@@ -2,7 +2,8 @@
 <div>
     <form class="s-form" @submit.prevent>
       <h3 class="s-title">Добавить страну</h3>
-      <s-input type="text" placeholder="Название" v-model="countrys.name_of_the_country"/>
+      <s-input type="text" placeholder="Название" v-model.trim="countrys.name_of_the_country" :class="{ 'error': errorFlag && !countrys.name_of_the_country }"/>
+      <strong v-if="errorFlag && !countrys.name_of_the_country" style="color: #f84c4c; margin-bottom: 10px">Заполните поле</strong>
       <s-button @click="addCounry">Добавить</s-button>
     </form>
   </div>
@@ -15,11 +16,16 @@ export default {
     return {
       countrys: {
         name_of_the_country: "",
-      }
+      },
+      errorFlag: false,
     }
   },
   methods: {
     addCounry() {
+      this.errorFlag = true;
+      if (!this.countrys.name_of_the_country ) {
+        return;
+      }
       this.$ajax.post('api/country/', {...this.countrys}).then(() => {
         this.$emit('create', {...this.countrys})
         this.countrys.name_of_the_country = ''
@@ -37,5 +43,8 @@ export default {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
+}
+.error {
+  border: 3px solid #f84c4c;
 }
 </style>

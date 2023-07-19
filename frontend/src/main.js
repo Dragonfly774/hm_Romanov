@@ -4,10 +4,14 @@ import components from '@/components/UI'
 import router from '@/router/router'
 import ajax from "@/plugins/axios";
 import store from '@/store/index'
+import VueTheMask from 'vue-the-mask'
+
+
+Vue.use(VueTheMask)
+
 
 Vue.config.productionTip = false
 Vue.use(ajax)
-
 
 
 components.forEach(component => Vue.component(component.name, component))

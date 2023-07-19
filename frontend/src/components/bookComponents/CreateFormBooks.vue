@@ -105,6 +105,4 @@ export default {
 .error {
   border: 3px solid #f84c4c;
 }
-
-
 </style>
