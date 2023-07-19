@@ -1,10 +1,10 @@
 <template>
-  <input class="s-input" :value="value" @input="updateInput">
+  <textarea class="s-textarea" :value="value" @input="updateInput"></textarea>
 </template>
 
 <script>
 export default {
-  name: "SInput",
+  name: "STextarea",
   props: {
     value: [String, Number, []]
   },
@@ -17,17 +17,17 @@ export default {
 </script>
 
 <style scoped>
-.s-input {
-  height: 25px;
+.s-textarea {
+  height: 100px;
   padding: 5px;
   border: 1px solid #bdbdbd;
   font-size: 16px;
   border-radius: 5px;
   outline: 0;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.s-input:focus {
+.s-textarea:focus {
   border-color: #bdbdbd;
   box-shadow: 0 0 0 0.1rem rgba(158, 158, 158, 0.25);
 }

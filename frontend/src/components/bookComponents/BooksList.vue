@@ -1,43 +1,50 @@
 <template>
   <div>
-    <div v-if="books.length > 0">
-      <div class="books" v-for="book in books" :key="`book-${book.id}`">
-        <div>
-          <div class="s-item">
-            <div style="display: flex; flex-direction: row;">
-              <div class="s-item--actions">
-                <s-button class="warning" @click="$emit('remove', book)">Удалить</s-button>
+
+    <div v-show="books.length !== 0">
+      <transition-group name="book">
+        <div class="books" v-for="book in books" :key="`book-${book.id}`">
+          <div>
+            <div class="s-item">
+              <div style="display: flex; flex-direction: row;">
+                <div class="s-item--actions">
+                  <s-button class="warning" @click="$emit('remove', book)">Удалить</s-button>
+                </div>
+                <div class="s-item--actions">
+                  <s-button class="notify" @click="$emit('update', book)">Изменить</s-button>
+                </div>
               </div>
-              <div class="s-item--actions">
-                <s-button class="notify" @click="$emit('update', book)">Изменить</s-button>
-              </div>
+              <table class="s-tr">
+                <tr>
+                  <td class="s-td"><p><strong>id:</strong></p></td>
+                  <td class="s-td"><p><strong>Название:</strong></p></td>
+                  <td class="s-td"><p><strong>Аннотация:</strong></p></td>
+                  <td class="s-td"><p><strong>Автор:</strong></p></td>
+                  <td class="s-td"><p><strong>Жанры:</strong></p></td>
+                </tr>
+                <tr>
+                  <td class="s-td"><p>{{ book.id }}</p></td>
+                  <td class="s-td"><p>{{ book.name }}</p></td>
+                  <td class="s-td"><p>{{ book.annotation }}</p></td>
+                  <td class="s-td"><p>{{ book.author }}</p></td>
+                  <td class="s-td"><p>{{ String(book.genres) }}</p></td>
+                </tr>
+              </table>
             </div>
-            <table class="s-tr">
-              <tr>
-                <td class="s-td"><p><strong>id:</strong></p></td>
-                <td class="s-td"><p><strong>Название:</strong></p></td>
-                <td class="s-td"><p><strong>Аннотация:</strong></p></td>
-                <td class="s-td"><p><strong>Автор:</strong></p></td>
-                <td class="s-td"><p><strong>Жанры:</strong></p></td>
-              </tr>
-              <tr>
-                <td class="s-td"><p>{{ book.id }}</p></td>
-                <td class="s-td"><p>{{ book.name }}</p></td>
-                <td class="s-td"><p>{{ book.annotation }}</p></td>
-                <td class="s-td"><p>{{ book.author }}</p></td>
-                <td class="s-td"><p>{{ String(book.genres) }}</p></td>
-
-              </tr>
-
-            </table>
           </div>
         </div>
-      </div>
+      </transition-group>
     </div>
-    <div v-else class="warning" style="text-align: center">
-      <h1>Книг нет</h1>
+    <transition name="book">
+    <div v-show="books.length === 0" class="warning" style="text-align: center">
+
+        <h1>Книг нет</h1>
+
     </div>
+</transition>
+
   </div>
+
 </template>
 
 <script>
@@ -55,11 +62,6 @@ export default {
       $emit('remove', book)
     })
   },
-  // updateBook(book) {
-  //   this.$ajax.put(`api/book/${book.id}/`).then((response) => {
-  //     $emit('update', book)
-  //   })
-  // }
 }
 </script>
 
@@ -94,5 +96,19 @@ export default {
   align-self: end;
   margin-left: 10px;
   margin-top: 10px;
+}
+
+.book-enter-active, .book-leave-active {
+  transition: all 1s;
+}
+
+.book-move {
+  transition: transform 1s;
+}
+
+.book-enter, .book-leave-to {
+  opacity: 0.5;
+  transform: translateY(20px);
+
 }
 </style>

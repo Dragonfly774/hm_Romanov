@@ -2,26 +2,30 @@
   <div>
     <form class="s-form" @submit.prevent>
       <h3 class="s-title">Добавить книгу</h3>
-      <s-input type="text" placeholder="Название" v-model="book.name"/>
-      <s-input type="text" placeholder="Аннотация" v-model="book.annotation"/>
+
+      <s-input type="text" placeholder="Название" v-model.trim="book.name" :class="{ 'error': errorFlag && !book.name }"/>
+      <strong v-if="errorFlag && !book.name" style="color: #f84c4c; margin-bottom: 10px">Заполните поле</strong>
+
+      <s-textarea type="text" placeholder="Аннотация" v-model.trim="book.annotation" :class="{ 'error': errorFlag && !book.annotation }"/>
+      <strong v-if="errorFlag && !book.annotation" style="color: #f84c4c; margin-bottom: 10px">Заполните поле</strong>
+
       <s-select style="margin-bottom: 10px; height: 25px; border-radius: 8px;"
                 v-model.number="authorValue" :options="authorsOption"></s-select>
-<!--      <select style="margin-bottom: 10px; height: 25px; border-radius: 8px;" v-model="authorValue">-->
-<!--        <option v-for="option in authorsOption">-->
-<!--          {{ option.name }}-->
-<!--        </option>-->
-<!--      </select>-->
+
       <select multiple="multiple" style="border-radius: 5px; margin-bottom: 10px" v-model="genreValue">
         <option v-for="option in genresOption">
           {{ option.name }}
         </option>
       </select>
+
       <s-button @click="addBook">Добавить</s-button>
     </form>
+
   </div>
 </template>
 
 <script>
+
 
 export default {
   name: "CreateFormBooks",
@@ -39,14 +43,18 @@ export default {
       authorsList: {},
       genresOption: [],
       authorsOption: [],
+      errorFlag: false,
     }
   },
   methods: {
     addBook() {
+      this.errorFlag = true;
+      if (!this.book.name || !this.book.annotation) {
+        return;
+      }
+
       this.book.genres = this.genreValue
-      console.log(this.authorValue)
       this.book.author = `${this.authorsList.authors[this.authorValue - 1].first_name} ${this.authorsList.authors[this.authorValue - 1].second_name}`
-      // console.log(this.book.author)
       this.$ajax.post('api/book/', {...this.book}).then(() => {
         this.$emit('create', {...this.book})
         this.book.name = ''
@@ -94,4 +102,9 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.error {
+  border: 3px solid #f84c4c;
+}
+
+
 </style>

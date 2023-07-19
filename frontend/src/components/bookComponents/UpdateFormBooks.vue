@@ -2,14 +2,10 @@
   <div>
     <form class="s-form" @submit.prevent>
       <h3 class="s-title">Изменить книгу</h3>
-      <s-input type="text" placeholder="Название" v-model="book.name"/>
-      <s-input type="text" placeholder="Аннотация" v-model="book.annotation"/>
-      <s-select  style="margin-bottom: 10px; height: 25px; border-radius: 8px;"  v-model.number="authorValue" :options="authorsOption"></s-select>
-<!--      <select style="margin-bottom: 10px; height: 25px; border-radius: 8px;" v-model="authorValue">-->
-<!--        <option v-for="option in authorsOption">-->
-<!--          {{ option.name }}-->
-<!--        </option>-->
-<!--      </select>-->
+      <s-input type="text" placeholder="Название" v-model.trim="book.name"/>
+      <s-textarea type="text" placeholder="Аннотация" v-model.trim="book.annotation"/>
+      <s-select style="margin-bottom: 10px; height: 25px; border-radius: 8px;" v-model.number="authorValue"
+                :options="authorsOption"></s-select>
       <select multiple="multiple" style="border-radius: 5px; margin-bottom: 10px" v-model="genreValue">
         <option v-for="option in genresOption">
           {{ option.name }}
@@ -21,6 +17,7 @@
 </template>
 
 <script>
+
 
 export default {
   name: "UpdateFormBooks",

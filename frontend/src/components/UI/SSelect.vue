@@ -1,6 +1,6 @@
 <template>
 
-  <select :value="value" @change="$emit('input', $event.target.value)">
+  <select style="border-radius: 5px;" :value="value" @change="$emit('input', $event.target.value)">
     <option disabled value="">Выберите из списка</option>
     <option
         v-for="option in options"

@@ -7,6 +7,8 @@
     <s-dialog v-model="updateFormVisible">
       <update-form-books :booksUpData="bookUpDate" @update="updateBooksForm"></update-form-books>
     </s-dialog>
+    <s-input style="margin-top: 15px; width: 90%;" type="text" placeholder="Поиск"
+             v-model.trim="search"/>
     <div class="s-actions">
       <s-select v-model="selectedSort" :options="sortOptions"></s-select>
       <s-select v-model="switchSort" :options="switchSortOptions"
@@ -16,7 +18,8 @@
       </s-button>
     </div>
 
-    <books-list :books="sortedBooks" @remove="removeBooks" @update="updateBooks"></books-list>
+
+    <books-list :books="searchBookName" @remove="removeBooks" @update="updateBooks"></books-list>
   </div>
 </template>
 
@@ -53,7 +56,8 @@ export default {
         {value: 'annotation', name: 'По описанию',},
         {value: 'author', name: 'По автору',},
         {value: 'genres', name: 'По жанрам',},
-      ]
+      ],
+      search: ''
     }
   },
   computed: {
@@ -64,7 +68,10 @@ export default {
       } else {
         return [...this.books].sort((book1, book2) => String(book1[this.selectedSort])?.localeCompare(String(book2[this.selectedSort])))
       }
-
+    },
+    searchBookName() {
+      // this.counter += 1
+      return this.sortedBooks.filter(book => book.name.includes(this.search))
     }
   },
   methods: {
@@ -119,4 +126,5 @@ export default {
   display: flex;
   margin-top: 15px;
 }
+
 </style>
