@@ -7,6 +7,9 @@ import store from '@/store/index'
 
 Vue.config.productionTip = false
 Vue.use(ajax)
+
+
+
 components.forEach(component => Vue.component(component.name, component))
 
 // TODO: сделать кнопку изменить и сделать маски на инпуты, написать преподователю спросить как сделать чтоб вывоlидлиись не цифры а имена иназвания жанров

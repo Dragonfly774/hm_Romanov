@@ -4,6 +4,9 @@
     <s-dialog v-model="createFormVisible">
       <create-form-books @create="addBook"></create-form-books>
     </s-dialog>
+    <s-dialog v-model="updateFormVisible">
+      <update-form-books :booksUpData="bookUpDate" @update="updateBooksForm"></update-form-books>
+    </s-dialog>
     <div class="s-actions">
       <s-select v-model="selectedSort" :options="sortOptions"></s-select>
       <s-select v-model="switchSort" :options="switchSortOptions"
@@ -12,25 +15,30 @@
         Добавить
       </s-button>
     </div>
-    <books-list :books="sortedBooks" @remove="removeBooks"></books-list>
+
+    <books-list :books="sortedBooks" @remove="removeBooks" @update="updateBooks"></books-list>
   </div>
 </template>
 
 <script>
 import CreateFormBooks from "@/components/bookComponents/CreateFormBooks.vue";
 import BooksList from "@/components/bookComponents/BooksList.vue";
+import UpdateFormBooks from "@/components/bookComponents/UpdateFormBooks.vue";
 
 export default {
   name: "AppContentBooks",
-  components: {BooksList, CreateFormBooks},
+  components: {BooksList, CreateFormBooks, UpdateFormBooks},
   data() {
     return {
+      bookUpDate: [],
       books: [],
       name: '',
       annotation: '',
       author: '',
       genres: [],
       createFormVisible: false,
+      updateFormVisible: false,
+      counter: '', // она нужна для перерисовки страницы, везде где ее меняю, то перерисовывается страница
       switchSort: '', // направление сортировки
       switchSortOptions: [
         {value: "0", name: "По умолчанию"},
@@ -50,6 +58,7 @@ export default {
   },
   computed: {
     sortedBooks() {
+      this.counter += 1
       if (this.switchSort === "2") {
         return [...this.books].sort((book1, book2) => String(book1[this.selectedSort])?.localeCompare(String(book2[this.selectedSort]))).reverse()
       } else {
@@ -68,6 +77,26 @@ export default {
       this.$ajax.delete(`api/book/${book.id}`).then((response) => {
         this.books = this.books.filter(elem => elem.id !== book.id)
       })
+    },
+
+    updateBooks(book) {
+      //   это вызовется когда кнопка нажата будет из BookList
+
+      this.bookUpDate = book
+      this.updateFormVisible = true
+
+    },
+    updateBooksForm(book) {
+      // тут что придет от формы
+      this.updateFormVisible = false
+      for (let i in this.books) {
+        if (this.books[i].id === book.id) {
+          this.books[i] = book
+          this.counter += 1
+          break
+        }
+      }
+
     }
   },
   mounted() {

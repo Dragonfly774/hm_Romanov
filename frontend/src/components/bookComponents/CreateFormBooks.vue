@@ -6,7 +6,12 @@
       <s-input type="text" placeholder="Аннотация" v-model="book.annotation"/>
       <s-select style="margin-bottom: 10px; height: 25px; border-radius: 8px;"
                 v-model.number="authorValue" :options="authorsOption"></s-select>
-      <select multiple="multiple" style="border-radius: 5px; margin-bottom: 10px" v-model="genreValue" >
+<!--      <select style="margin-bottom: 10px; height: 25px; border-radius: 8px;" v-model="authorValue">-->
+<!--        <option v-for="option in authorsOption">-->
+<!--          {{ option.name }}-->
+<!--        </option>-->
+<!--      </select>-->
+      <select multiple="multiple" style="border-radius: 5px; margin-bottom: 10px" v-model="genreValue">
         <option v-for="option in genresOption">
           {{ option.name }}
         </option>
@@ -29,7 +34,7 @@ export default {
         genres: [],
       },
       genreValue: [],
-      authorValue: [],
+      authorValue: 1, // чтобы при id=0 работало
       genresList: {},
       authorsList: {},
       genresOption: [],
@@ -39,7 +44,7 @@ export default {
   methods: {
     addBook() {
       this.book.genres = this.genreValue
-      // console.log(this.genreValue)
+      console.log(this.authorValue)
       this.book.author = `${this.authorsList.authors[this.authorValue - 1].first_name} ${this.authorsList.authors[this.authorValue - 1].second_name}`
       // console.log(this.book.author)
       this.$ajax.post('api/book/', {...this.book}).then(() => {
@@ -49,7 +54,8 @@ export default {
         this.book.author = ''
         this.book.genres = ''
       })
-    }
+    },
+
   },
   mounted() {
     this.genresList = this.$store.state.genre
@@ -64,6 +70,8 @@ export default {
     this.authorsList = this.$store.state.author
     const authorsListLength = this.authorsList.authors.length
     let j = 0
+    // console.log(this.authorsList.authors[2].id)
+    // console.log(this.authorsList.authors[2].first_name)
     while (authorsListLength > j) {
       this.authorsOption.push(
           {

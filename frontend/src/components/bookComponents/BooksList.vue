@@ -5,13 +5,13 @@
         <div>
           <div class="s-item">
             <div style="display: flex; flex-direction: row;">
-                <div class="s-item--actions">
-                  <s-button class="warning" @click="$emit('remove', book)">Удалить</s-button>
-                </div>
-                <div class="s-item--actions">
-                  <s-button class="notify" @click="$emit('remove', book)">Изменить</s-button>
-                </div>
+              <div class="s-item--actions">
+                <s-button class="warning" @click="$emit('remove', book)">Удалить</s-button>
               </div>
+              <div class="s-item--actions">
+                <s-button class="notify" @click="$emit('update', book)">Изменить</s-button>
+              </div>
+            </div>
             <table class="s-tr">
               <tr>
                 <td class="s-td"><p><strong>id:</strong></p></td>
@@ -26,7 +26,9 @@
                 <td class="s-td"><p>{{ book.annotation }}</p></td>
                 <td class="s-td"><p>{{ book.author }}</p></td>
                 <td class="s-td"><p>{{ String(book.genres) }}</p></td>
+
               </tr>
+
             </table>
           </div>
         </div>
@@ -53,10 +55,10 @@ export default {
       $emit('remove', book)
     })
   },
-  // mounted() {
-  //   this.$ajax.get('api/genre').then((response) => {
-  //     localStorage.setItem('genre', response.data)
-  //       })
+  // updateBook(book) {
+  //   this.$ajax.put(`api/book/${book.id}/`).then((response) => {
+  //     $emit('update', book)
+  //   })
   // }
 }
 </script>

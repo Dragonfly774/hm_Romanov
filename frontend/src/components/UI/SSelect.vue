@@ -16,9 +16,7 @@
 export default {
   name: "SSelect",
   props: {
-    value: {
-      type: Array, String
-    },
+    value: [],
     options: {
       type: Array,
       default: () => []
